@@ -23,7 +23,7 @@ const closeDB = async () => {
   
 }
 
-const selectConnection = (collectionName) => {
+const selectCollection = (collectionName) => {
 
   try {
     const database = client.db("blog_db");
@@ -34,4 +34,4 @@ const selectConnection = (collectionName) => {
   }
 }
 
-module.exports = {connectDB, closeDB, selectConnection};
+module.exports = {connectDB, closeDB, selectCollection};
