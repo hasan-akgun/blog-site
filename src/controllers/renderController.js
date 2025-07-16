@@ -1,5 +1,9 @@
 const renderView = (req, res)=>{
-  const page = req.params.page
+  let page = req.params.page
+
+  if(!page){
+    page = "home"
+  }
   res.render(page);
 }
 

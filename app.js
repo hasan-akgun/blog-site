@@ -23,11 +23,13 @@ app.use(session({
 }))
 
 const loginRoute = require("./src/routes/loginRoute");
-const indexRoute = require("./src/routes/rendererRoute")
+const rendererRoute = require("./src/routes/rendererRoute")
+
+
 
 app.use("/api/login", loginRoute);
 
-app.use("/", indexRoute)
+app.use("/", rendererRoute)
 
 try {
   app.listen(3000, ()=>{
