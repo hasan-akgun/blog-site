@@ -7,6 +7,10 @@ app.set('views', './views');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const loginRoute = require("./src/routes/loginRoute");
+
+app.use("/api/login", loginRoute);
+
 app.get('/', (req,res)=>{
   res.render('index');
 })
