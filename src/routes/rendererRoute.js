@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const { renderView } = require("../controllers/renderController");
+const { verifySession } = require("../middlewares/verifySessionMiddleware");
 
-router.get('/:page', renderView);
+router.get('/:page', verifySession, renderView);
 
 module.exports = router
