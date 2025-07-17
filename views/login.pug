@@ -47,7 +47,8 @@ script.
     password = e.target.value;
   });
 
-  document.getElementById('sendButton').addEventListener('click', async function() {
+  document.getElementById('sendButton').addEventListener('click', async function(e) {
+    e.preventDefault();
     try{
       const response = await fetch('http://localhost:3000/api/login',{
         method: 'POST',
@@ -62,9 +63,7 @@ script.
 
       const result = await response.json();
      
-
       if(result.success===false){
-
         document.getElementById('alertText').classList.remove('invisible');
       }
       else{

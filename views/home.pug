@@ -5,18 +5,12 @@ body
     header.container-fluid.bg-light.py-3.border-bottom
         .d-flex.justify-content-between.align-items-center
             h1.m-0 Welcome
-            button#loginButton.btn.btn-primary(type="button") Login
+            button#blogButton.btn.btn-primary(type="button") Blog
 
     // Main Content
     main.container.mt-4
         p.lead This is a simple homepage created with Bootstrap and PugJS.
-        button#blogButton.btn.btn-primary(type="button") Blog
-
 script.
-
-  document.getElementById('loginButton').addEventListener('click', function(e) {
-    window.location.href = '/login'
-  });
 
   document.getElementById('blogButton').addEventListener('click', function(e) {
     window.location.href = '/blog'
