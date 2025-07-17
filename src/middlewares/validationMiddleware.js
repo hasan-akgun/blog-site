@@ -17,13 +17,15 @@ const validateUsername = (req, res, next) => {
     })
     return
   }
+
+  next();
 }
 
 const validateHTML = (req, res, next) => {
   const { username } = req.body
 
   const htmlRegex = /<\w+>/i;
-  if (htmlRegex.test(comment)) {
+  if (htmlRegex.test(username)) {
     res.status(400).json({
       success: false,
       message: "Please enter a valid comment"
@@ -31,10 +33,7 @@ const validateHTML = (req, res, next) => {
     return
   }
 
-  res.status(200).json({
-    success: true,
-    message: "success"
-  })
+  next();
 }
 
 module.exports = {validateUsername, validateHTML}
