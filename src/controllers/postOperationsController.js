@@ -12,8 +12,29 @@ const createNewPost = async (req, res) => {
     content: content
   })
 
+  await closeDB();
+
   res.status(200).json({
     success: true,
     message: "Post created"
   })
+}
+
+const deletePost = async (req, res) => {
+  const {id} = req.body
+
+  await connectDB();
+  const postsCollection = selectCollection("posts");
+
+  await postsCollection.deleteOne({
+    _id: new ObjectId(id)
+  })
+
+  await closeDB();
+
+  res.status(200).json({
+    success: true,
+    message: "Post deleted"
+  })
+  
 }
