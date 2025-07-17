@@ -5,8 +5,8 @@ const { verifySession } = require("../middlewares/verifySessionMiddleware");
 const { createNewPost, readAllPosts, deletePost, updatePost, readOnePost } = require("../controllers/postOperationsController");
 
 router.post("/", verifySession, createNewPost);
-router.get("/", verifySession, readAllPosts);
-router.get("/:id", verifySession, readOnePost);
+router.get("/", readAllPosts);
+router.get("/:id", readOnePost);
 router.delete("/", verifySession, deletePost);
 router.put("/", verifySession, updatePost);
 

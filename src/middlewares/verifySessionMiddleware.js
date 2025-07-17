@@ -1,6 +1,6 @@
 const verifySession = (req,res,next)=>{
 
-  const allowedPages = ["home", "blog", "login"];
+  const allowedPages = ["home", "blog", "login", "post"];
   const page = req.params.page;
   if(allowedPages.includes(page)){
     next();
