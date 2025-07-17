@@ -38,3 +38,18 @@ const deletePost = async (req, res) => {
   })
   
 }
+
+const readAllPosts = async (req, res) => {
+  await connectDB();
+  const postsCollection = selectCollection("posts");
+
+  const allPosts = await postsCollection.find({}).toArray();
+
+  await closeDB();
+
+  res.status(200).json({
+    success: true,
+    message: "Post deleted",
+    data: allPosts
+  })
+}
