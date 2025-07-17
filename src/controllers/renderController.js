@@ -4,7 +4,7 @@ const renderView = (req, res)=>{
   if(!page){
     page = "home"
   }
-  res.render(page);
+  res.render(`${page}.pug`);
 }
 
 module.exports = {renderView}
