@@ -49,7 +49,24 @@ const readAllPosts = async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "Post deleted",
+    message: "All posts retrieved",
     data: allPosts
+  })
+}
+
+const readOnePost = async (req, res) => {
+  const {id} = req.body
+
+  await connectDB();
+  const postsCollection = selectCollection("posts");
+
+  const post = await postsCollection.findOne({
+    _id: new ObjectId(id)
+  })
+
+  res.status(200).json({
+    success: true,
+    message: "Post retrieved",
+    data: post
   })
 }
