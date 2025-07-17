@@ -55,12 +55,12 @@ const readAllPosts = async (req, res) => {
 }
 
 const readOnePost = async (req, res) => {
-  const {id} = req.body
+  const {id} = req.params
 
   await connectDB();
   const postsCollection = selectCollection("posts");
 
-  const post = await postsCollection.findOne({
+  const post = await postsCollection.find({
     _id: new ObjectId(id)
   }).toArray();
 
@@ -95,5 +95,7 @@ const updatePost = async (req, res) => {
     message: "Post updated",
   })
 }
+
+module.exports = {createNewPost, deletePost, readAllPosts, readOnePost, updatePost};
 
 

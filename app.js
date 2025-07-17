@@ -17,18 +17,19 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: { 
-    maxAge: 1000 * 60 * 60,
+    maxAge: 1000 * 60 * 600,
     httpOnly: true, // XSS saldırılarına karşı koruma
   }
 }))
 
 const loginRoute = require("./src/routes/loginRoute");
+const postOperationsRoute = require("./src/routes/postOperationsRoute");
 const rendererRoute = require("./src/routes/rendererRoute")
 
 
 
 app.use("/api/login", loginRoute);
-
+app.use("/api/dashboard", postOperationsRoute)
 app.use("/", rendererRoute)
 
 try {
