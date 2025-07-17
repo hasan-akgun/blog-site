@@ -62,7 +62,9 @@ const readOnePost = async (req, res) => {
 
   const post = await postsCollection.findOne({
     _id: new ObjectId(id)
-  })
+  }).toArray();
+
+  await closeDB();
 
   res.status(200).json({
     success: true,
@@ -70,3 +72,28 @@ const readOnePost = async (req, res) => {
     data: post
   })
 }
+
+const updatePost = async (req, res) => {
+  const {id, title, content} = req.body
+
+  await connectDB();
+  const postsCollection = selectCollection("posts");
+
+  await postsCollection.updateOne(
+    {_id: new ObjectId(id)},
+
+    {
+      $set: {title: title, content: content},
+      $currentDate: {lastModified: true}
+    }
+  );
+
+  await closeDB();
+
+   res.status(200).json({
+    success: true,
+    message: "Post updated",
+  })
+}
+
+
