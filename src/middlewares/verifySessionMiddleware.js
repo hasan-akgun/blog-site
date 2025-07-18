@@ -2,6 +2,13 @@ const verifySession = (req,res,next)=>{
 
   const allowedPages = ["home", "blog", "login", "post"];
   const page = req.params.page;
+
+  if(page==="login" && req.session.username){
+    req.params.page = "dashboard";
+    next();
+    return;
+  }
+
   if(allowedPages.includes(page)){
     next();
     return;
