@@ -177,3 +177,24 @@ script.
     }
   })
 
+   document.getElementById('logout').addEventListener('click', async ()=>{
+    try{
+      const response = await fetch('http://localhost:3000/api/dashboard/logout',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const result = await response.json();
+      console.log(result);
+
+      if(result.success===true){
+        window.location.href = '/home'
+      }
+      
+    }catch(error){
+      console.log(error);
+    }
+  })
+
