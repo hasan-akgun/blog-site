@@ -2,22 +2,22 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let destination;
-    if(file.mimetype === "image/png") {
-        destination = "images";
-    }else if(file.mimetype === "application/pdf"){
+    if (file.mimetype === "image/png") {
+      destination = "images";
+    } else if (file.mimetype === "application/pdf") {
       destination = "pdf";
     }
     cb(null, `C:\\Users\\Hasan\\Documents\\Ödevler\\blog-site\\public\\uploads\\${destination}`)
   },
-  filename: (req, file, cb)=>{
+  filename: (req, file, cb) => {
     let name;
-    if(file.mimetype === "image/png") {
-        name = "image.PNG";
-    }else if(file.mimetype === "application/pdf"){
+    if (file.mimetype === "image/png") {
+      name = "image.PNG";
+    } else if (file.mimetype === "application/pdf") {
       name = "file.PDF";
     }
     const uniqeSuffix = new Date(Date.now()).toLocaleString().replace(/[/:]/g, '-');
-    const fileName = uniqeSuffix + name
+    const fileName = (uniqeSuffix + name).replace(" ", "-")
     cb(null, fileName)
   }
 })
@@ -30,7 +30,7 @@ const uploadFile = (req, res) => {
   upload(req, res, (error) => {
     // Başarılı yükleme
 
-    if(error){
+    if (error) {
       return res.status(400).json({
         success: false,
         message: "enter a valid file"
@@ -54,5 +54,7 @@ const uploadFile = (req, res) => {
 
 
 }
+
+
 
 module.exports = { uploadFile }
