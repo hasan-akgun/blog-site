@@ -25,12 +25,14 @@ app.use(session({
 
 const loginRoute = require("./src/routes/loginRoute");
 const postOperationsRoute = require("./src/routes/postOperationsRoute");
+const uploadingRoute = require("./src/routes/uploadingRoute");
 const rendererRoute = require("./src/routes/rendererRoute")
 
 
 
 app.use("/api/login", loginRoute);
 app.use("/api/dashboard", postOperationsRoute)
+app.use("/api/upload", uploadingRoute)
 app.use("/", rendererRoute)
 
 try {
