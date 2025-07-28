@@ -5,13 +5,17 @@ body
     header.container-fluid.bg-light.py-3.border-bottom
         .d-flex.justify-content-between.align-items-center
             h1.m-0 Welcome
-            button#blogButton.btn.btn-primary(type="button") Blog
+            button#dashboardButton.btn.btn-primary(type="button") Dash
+            button#requestsButton.btn.btn-primary(type="button") Requests
 
     // Main Content
     main.container.mt-4
         p.lead This is a simple Admin Page
 script.
 
-  document.getElementById('blogButton').addEventListener('click', function(e) {
-    window.location.href = '/blog'
+  document.getElementById('dashboardButton').addEventListener('click', function(e) {
+    window.location.href = '/dashboard'
+  });
+    document.getElementById('requestsButton').addEventListener('click', function(e) {
+    window.location.href = '/requests'
   });
