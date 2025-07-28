@@ -27,17 +27,17 @@ const saveRequest = async (req, res) => {
 
 }
 
-const readAllPosts = async (req, res) => {
+const readAllRequests = async (req, res) => {
   await connectDB();
-  const postsCollection = selectCollection("posts");
-  let allPosts;
+  const reuestsCollection = selectCollection("posts");
+  let allRequests;
 
   try {
-    allPosts = await postsCollection.find({}).toArray();
+    allRequests = await reuestsCollection.find({}).toArray();
   } catch (error) {
     res.status(404).json({
       success: false,
-      message: "All posts couldnt be retrieved",
+      message: "All requests couldnt be retrieved",
     })
   } finally {
     await closeDB();
@@ -45,9 +45,9 @@ const readAllPosts = async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "All posts retrieved",
-    data: allPosts
+    message: "All requests retrieved",
+    data: allRequests
   })
 }
 
-module.exports = {saveRequest};
+module.exports = {saveRequest, readAllRequests};
