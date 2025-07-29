@@ -1,7 +1,6 @@
 const multer = require("multer");
 
-let fileUrl = "/uploads/";
-
+let fileUrl = "/uploads/"
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let destination;
@@ -10,7 +9,9 @@ const storage = multer.diskStorage({
     } else if (file.mimetype === "application/pdf") {
       destination = "pdf";
     }
+    fileUrl= "/uploads/"
     fileUrl += destination
+    console.log(fileUrl)
     cb(null, `C:\\Users\\Hasan\\Documents\\Ödevler\\blog-site\\public\\uploads\\${destination}`)
   },
   filename: (req, file, cb) => {
@@ -23,6 +24,8 @@ const storage = multer.diskStorage({
     const uniqeSuffix = new Date(Date.now()).toLocaleString().replace(/[/:]/g, '-');
     const fileName = (uniqeSuffix + name).replace(" ", "-")
     fileUrl += "/" + fileName
+    console.log(fileUrl)
+
     cb(null, fileName)
   }
 })
@@ -30,7 +33,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("uploaded_file");
 
 const uploadFile = (req, res, next) => {
-
 
   upload(req, res, (error) => {
     // Başarılı yükleme

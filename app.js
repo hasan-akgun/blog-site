@@ -25,14 +25,14 @@ app.use(session({
 
 const loginRoute = require("./src/routes/loginRoute");
 const postOperationsRoute = require("./src/routes/postOperationsRoute");
-const requestsgRoute = require("./src/routes/requestsRoute");
+const requestsRoute = require("./src/routes/requestsRoute");
 const rendererRoute = require("./src/routes/rendererRoute")
 
 
 
 app.use("/api/login", loginRoute);
 app.use("/api/dashboard", postOperationsRoute)
-app.use("/api/requests", requestsgRoute)
+app.use("/api/requests", requestsRoute)
 app.use("/", rendererRoute)
 
 try {

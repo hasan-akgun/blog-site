@@ -1,0 +1,70 @@
+doctype html
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title New Client
+    // Bootstrap CSS
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css", rel="stylesheet")
+    style.
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+body
+    // Form Container
+    .form-container
+        h2.text-center.mb-4 Create a client request
+        form(enctype="multipart/form-data" method="post")
+            .mb-3
+                label.form-label(for="username") Username
+                input#username.form-control(type="text", required)
+            .d-grid.gap-2
+                input#fileupload.form-control(type="file", name="uploaded_file", required)
+            .d-grid.gap-2
+                button#sendButton.btn.btn-primary(type="submit") Submit
+            .mt-3.text-center
+                label#alertText.form-label.invisible(for="text") Wrong username or password
+
+script.
+
+  let username;
+  document.getElementById('username').addEventListener('input', function(e) {
+    username = e.target.value;
+  });
+
+
+
+  document.getElementById('sendButton').addEventListener('click', async function(e) {
+    e.preventDefault();
+    try{
+
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('uploaded_file', document.getElementById('fileupload').files[0]);
+
+      const response = await fetch('http://localhost:3000/api/requests',{
+        method: 'POST',
+        body: formData
+      })
+
+      const result = await response.json();
+     
+      if(result.success===false){
+        document.getElementById('alertText').classList.remove('invisible');
+        document.getElementById('alertText').innerText=result.message
+      }
+      else{
+        window.location.href = '/home'
+      }
+    }catch(error){
+      console.log(error);
+    }
+  });

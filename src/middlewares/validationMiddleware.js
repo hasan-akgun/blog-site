@@ -1,5 +1,5 @@
 const validateUsername = (req, res, next) => {
-  const { username, password } = req.body;
+  const username = req.body.username || '';
 
   if (typeof username !== "string") {
     res.status(400).json({
