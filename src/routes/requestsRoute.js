@@ -3,10 +3,10 @@ const router = express.Router();
 
 const { uploadFile } = require("../middlewares/uploadFileMiddleware");
 const { saveRequest, readAllRequests } = require("../controllers/requestController");
-const { validateUsername } = require("../middlewares/validationMiddleware");
+const { verifySession } = require("../middlewares/verifySessionMiddleware");
 
-router.post("/",  uploadFile, validateUsername, saveRequest );
-router.get("/", readAllRequests)
+router.post("/", uploadFile, saveRequest );
+router.get("/",  verifySession, readAllRequests)
 
 
 module.exports = router;

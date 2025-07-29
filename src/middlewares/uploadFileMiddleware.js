@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
     } else if (file.mimetype === "application/pdf") {
       destination = "pdf";
     }
-    fileUrl= "/uploads/"
+    fileUrl = "/uploads/"
     fileUrl += destination
     console.log(fileUrl)
     cb(null, `C:\\Users\\Hasan\\Documents\\Ödevler\\blog-site\\public\\uploads\\${destination}`)
@@ -52,16 +52,13 @@ const uploadFile = (req, res, next) => {
       });
     }
 
-    req.body.fileurl= fileUrl
+    req.body.fileurl = fileUrl
     next();
   })
 
 
 }
 
-const getFile = (req, res) => {
-  
-}
 
 
 

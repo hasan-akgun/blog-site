@@ -29,7 +29,7 @@ const saveRequest = async (req, res) => {
 
 const readAllRequests = async (req, res) => {
   await connectDB();
-  const reuestsCollection = selectCollection("posts");
+  const reuestsCollection = selectCollection("requests");
   let allRequests;
 
   try {
