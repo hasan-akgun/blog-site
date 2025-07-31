@@ -49,5 +49,31 @@ const readAllRequests = async (req, res) => {
     data: allRequests
   })
 }
+const acceptRequest = async (req, res) => {
 
-module.exports = {saveRequest, readAllRequests};
+  const { username, fileurl } = req.body;
+  await connectDB();
+  const acceptedCollection = selectCollection("accepted_clients")
+
+  try {
+    await acceptedCollection.insertOne({
+      username: username,
+      fileurl: fileurl
+    })
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Request couldnt accepted"
+    })
+  } finally {
+    await closeDB();
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Request accepted"
+  })
+
+}
+
+module.exports = { saveRequest, readAllRequests, acceptRequest };

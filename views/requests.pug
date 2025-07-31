@@ -29,7 +29,10 @@ script.
       if(result.success === true){
         let html="";
         result.data.forEach(content => {
-          html += `<div class="border border-3 rounded my-2 cursor-pointer content" id="${content.fileurl}">${content.username}</div>`
+          html += `<div class="border border-3 rounded my-2 cursor-pointer content" id="${content.fileurl}">${content.username}
+          <button>Accept</button>
+          <button>Reject</button>
+          </div>`
           requestsArea.innerHTML = html;
 
           document.querySelectorAll('div.content').forEach((noteDiv) => {
