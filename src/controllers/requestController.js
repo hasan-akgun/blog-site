@@ -60,6 +60,7 @@ const acceptRequest = async (req, res) => {
       username: username,
       fileurl: fileurl
     })
+
   } catch (error) {
     res.status(404).json({
       success: false,
