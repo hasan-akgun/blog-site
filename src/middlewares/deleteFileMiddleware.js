@@ -3,6 +3,9 @@ const path = require("path")
 
 const deleteFile = async (req, res, next) => {
   const {fileurl} = req.body
+  const {id} = req.body
+
+
   const rootPath = process.cwd()
   try {
     const fullPath = path.join(rootPath, "public", fileurl)

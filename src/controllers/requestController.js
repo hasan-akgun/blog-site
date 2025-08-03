@@ -1,4 +1,5 @@
 const { connectDB, closeDB, selectCollection } = require("../config/databaseConfig")
+const { ObjectId } = require("mongodb")
 
 const saveRequest = async (req, res) => {
 
@@ -77,4 +78,32 @@ const acceptRequest = async (req, res) => {
 
 }
 
-module.exports = { saveRequest, readAllRequests, acceptRequest };
+const deleteRequest = async (req, res) => {
+  const { id } = req.body
+
+  await connectDB();
+  const postsCollection = selectCollection("requests");
+
+  try {
+    await postsCollection.deleteOne({
+      _id: new ObjectId(id)
+    })
+    res.status(200).json({
+      success: true,
+      message: "Request deleted"
+    })
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Request couldnt be deleted"
+    })
+    return
+
+  } finally {
+    await closeDB();
+  }
+
+
+}
+
+module.exports = { saveRequest, readAllRequests, acceptRequest, deleteRequest };

@@ -30,20 +30,65 @@ script.
         let html="";
         result.data.forEach(content => {
           html += `<div class="border border-3 rounded my-2 cursor-pointer content" id="${content.fileurl}">${content.username}
-          <button>Accept</button>
-          <button>Reject</button>
+          <button class="checkBtn" data-fileurl="${content.fileurl}">Check</button>
+          <button id="accept" class="acceptBTN" data-username = "${content.username}" data-fileurl = "${content.fileurl}" data-id="${content._id}" >Accept</button>
+          <button class="rejectBTN" id="reject" data-id = "${content._id}" data-fileurl = "${content.fileurl}" >Reject</button>
           </div>`
           requestsArea.innerHTML = html;
-
-          document.querySelectorAll('div.content').forEach((noteDiv) => {
-            noteDiv.addEventListener('click', async () => {
-              id=noteDiv.id;
+        
+          document.querySelectorAll('button.checkBtn').forEach((btn) => {
+            btn.addEventListener('click', async () => {
+              id=btn.dataset.fileurl;
               window.location.href = `http://localhost:3000${id}`
             });
           });
+
+          document.querySelectorAll('button.acceptBTN').forEach((btn) => {
+            const username = btn.dataset.username
+            const fileurl = btn.dataset.fileurl
+            const id = btn.dataset.id
+            btn.addEventListener('click', async () => {
+              try{
+                const response = await fetch('http://localhost:3000/api/requests/accept',{
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    username: username,
+                    fileurl: fileurl,
+                    id: id 
+                  })
+                })
+              }catch(error){
+                console.log(error)
+              }
+            });
+          });
+
+          document.querySelectorAll('button.rejectBTN').forEach((btn) => {
+            const fileurl = btn.dataset.fileurl
+            const id = btn.dataset.id
+            btn.addEventListener('click', async () => {
+              try{
+                const response = await fetch('http://localhost:3000/api/requests/reject',{
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    fileurl: fileurl,
+                    id: id 
+                  })
+                })
+              }catch(error){
+                console.log(error)
+              }
+            });
+          });
         })
-        
       }
+ 
       
     }catch(error){
       console.log(error);
