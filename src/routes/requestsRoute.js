@@ -5,9 +5,10 @@ const { uploadFile } = require("../middlewares/uploadFileMiddleware");
 const { saveRequest, readAllRequests, acceptRequest, deleteRequest } = require("../controllers/requestController");
 const { verifySession } = require("../middlewares/verifySessionMiddleware");
 const { deleteFile } = require("../middlewares/deleteFileMiddleware");
+const { sendMailToUser } = require("../controllers/mailerController");
 
-router.post("/", uploadFile, saveRequest );
-router.post("/accept", verifySession, deleteFile, acceptRequest, deleteRequest);
+router.post("/", uploadFile, saveRequest, sendMailToUser );
+router.post("/accept", verifySession, deleteFile, acceptRequest, sendMailToUser, deleteRequest);
 router.delete("/delete", verifySession, deleteRequest);
 router.get("/",  verifySession, readAllRequests)
 

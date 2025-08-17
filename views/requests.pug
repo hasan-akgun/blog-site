@@ -31,7 +31,7 @@ script.
         result.data.forEach(content => {
           html += `<div class="border border-3 rounded my-2 cursor-pointer content" id="${content.fileurl}">${content.username}
           <button class="checkBtn" data-fileurl="${content.fileurl}">Check</button>
-          <button id="accept" class="acceptBTN" data-username = "${content.username}" data-fileurl = "${content.fileurl}" data-id="${content._id}" >Accept</button>
+          <button id="accept" class="acceptBTN" data-username = "${content.username}" data-fileurl = "${content.fileurl}" data-mail = "${content.mail}" data-id="${content._id}" >Accept</button>
           <button class="rejectBTN" id="reject" data-id = "${content._id}" data-fileurl = "${content.fileurl}" >Reject</button>
           </div>`
           requestsArea.innerHTML = html;
@@ -47,6 +47,7 @@ script.
             const username = btn.dataset.username
             const fileurl = btn.dataset.fileurl
             const id = btn.dataset.id
+            const mail = btn.dataset.mail
             btn.addEventListener('click', async () => {
               try{
                 const response = await fetch('http://localhost:3000/api/requests/accept',{
@@ -57,7 +58,9 @@ script.
                   body: JSON.stringify({
                     username: username,
                     fileurl: fileurl,
-                    id: id 
+                    id: id,
+                    mail: mail,
+                    target: "user" 
                   })
                 })
               }catch(error){
@@ -71,7 +74,7 @@ script.
             const id = btn.dataset.id
             btn.addEventListener('click', async () => {
               try{
-                const response = await fetch('http://localhost:3000/api/requests/reject',{
+                const response = await fetch('http://localhost:3000/api/requests/delete',{
                   method: 'DELETE',
                   headers: {
                     'Content-Type': 'application/json'

@@ -1,14 +1,15 @@
 const { connectDB, closeDB, selectCollection } = require("../config/databaseConfig")
 const { ObjectId } = require("mongodb")
 
-const saveRequest = async (req, res) => {
+const saveRequest = async (req, res, next) => {
 
-  const { username, fileurl } = req.body;
+  const { mail ,username, fileurl } = req.body;
   await connectDB();
   const requestsCollection = selectCollection("requests")
 
   try {
     await requestsCollection.insertOne({
+      mail: mail,
       username: username,
       fileurl: fileurl
     })
@@ -20,11 +21,8 @@ const saveRequest = async (req, res) => {
   } finally {
     await closeDB();
   }
-
-  res.status(200).json({
-    success: true,
-    message: "Request saved"
-  })
+  req.body.target = "admin"
+  next();
 
 }
 
@@ -50,7 +48,7 @@ const readAllRequests = async (req, res) => {
     data: allRequests
   })
 }
-const acceptRequest = async (req, res) => {
+const acceptRequest = async (req, res, next) => {
 
   const { username, fileurl } = req.body;
   await connectDB();
@@ -71,10 +69,7 @@ const acceptRequest = async (req, res) => {
     await closeDB();
   }
 
-  res.status(200).json({
-    success: true,
-    message: "Request accepted"
-  })
+  next();
 
 }
 
@@ -93,6 +88,7 @@ const deleteRequest = async (req, res) => {
       message: "Request deleted"
     })
   } catch (error) {
+    console.log(error)
     res.status(404).json({
       success: false,
       message: "Request couldnt be deleted"
